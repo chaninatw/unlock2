@@ -172,23 +172,34 @@
       if(digits.length>0){ digits.pop(); drawSlots(); setStatus('Waiting for input…','gray'); }
     }
 
-    function check(){
-      if(digits.length!==MAX) return;
-      const input = digits.join('');
-      if(input === SECRET){
-        setStatus('All digits correct. Door unlocking…','green');
-        unlockEl.style.display='grid';
-      } else {
-        tries++;
-        if(tries>=maxTries){
-          setStatus('LOCKED. Maximum attempts reached.','red');
-          checkBtn.disabled=true;
-          document.querySelectorAll('.btn').forEach(b=>b.disabled=true);
-        } else {
-          setStatus(`Incorrect code. Attempt ${tries}/${maxTries}.`,'red');
-        }
-      }
+   function check(){
+  if(digits.length!==MAX) return;
+  const input = digits.join('');
+
+  if(input === SECRET){
+    setStatus('All digits correct. Door unlocking…','green');
+    unlockEl.style.display='grid';
+  } else {
+    tries++;
+    if(tries >= maxTries){
+      setStatus('LOCKED. Maximum attempts reached. Try again in 5 minutes.','red');
+      checkBtn.disabled = true;
+      document.querySelectorAll('.btn').forEach(b => b.disabled = true);
+
+      // ⏱ Lockout timer: 5 minutes (300,000 ms)
+      setTimeout(() => {
+        tries = 0; // reset tries
+        document.querySelectorAll('.btn').forEach(b => b.disabled = false);
+        clearAll();
+        setStatus('System unlocked. You may try again.','gray');
+      }, 300000); // 5 minutes
+
+    } else {
+      setStatus(`Incorrect code. Attempt ${tries}/${maxTries}.`,'red');
     }
+  }
+}
+
 
     document.querySelectorAll('[data-key]').forEach(btn=>{
       btn.addEventListener('click',()=>pushDigit(btn.dataset.key))
