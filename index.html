@@ -192,7 +192,7 @@
         document.querySelectorAll('.btn').forEach(b => b.disabled = false);
         clearAll();
         setStatus('System unlocked. You may try again.','gray');
-      }, 300000); // 5 minutes
+      }, 10000); // 10 sec
 
     } else {
       setStatus(`Incorrect code. Attempt ${tries}/${maxTries}.`,'red');
