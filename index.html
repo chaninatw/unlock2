@@ -182,7 +182,7 @@
   } else {
     tries++;
     if(tries >= maxTries){
-      setStatus('LOCKED. Maximum attempts reached. Try again in 5 minutes.','red');
+      setStatus('LOCKED. Maximum attempts reached. Try again in 10 seconds.','red');
       checkBtn.disabled = true;
       document.querySelectorAll('.btn').forEach(b => b.disabled = true);
 
