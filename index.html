@@ -130,7 +130,7 @@
   </div>
 
   <script>
-    const DEFAULT_SECRET = "34679";
+    const DEFAULT_SECRET = "34379";
     let SECRET = DEFAULT_SECRET;
     const MAX = 5;
     let digits = [];
@@ -182,17 +182,17 @@
   } else {
     tries++;
     if(tries >= maxTries){
-      setStatus('LOCKED. Maximum attempts reached. Try again in 10 seconds.','red');
+      setStatus('LOCKED. Maximum attempts reached. Try again in 5 minutes.','red');
       checkBtn.disabled = true;
       document.querySelectorAll('.btn').forEach(b => b.disabled = true);
 
-      // ⏱ Lockout timer: 10 Sec (10,000 ms)
+      // ⏱ Lockout timer: 5 min (300000 ms)
       setTimeout(() => {
         tries = 0; // reset tries
         document.querySelectorAll('.btn').forEach(b => b.disabled = false);
         clearAll();
         setStatus('System unlocked. You may try again.','gray');
-      }, 10000); // 10 sec
+      }, 300000); // 5 min
 
     } else {
       setStatus(`Incorrect code. Attempt ${tries}/${maxTries}.`,'red');
